@@ -1,0 +1,16 @@
+.element {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: #fff;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  position: relative;
+
+  margin: 0;
+  padding: 0;
+}
