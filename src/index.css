@@ -3,6 +3,8 @@
 @import url(./fonts/_inter/fonts_inter.css);
 
 @import url(./blocks/page/page.css);
+@import url(./blocks/page/_theme_dark/page_theme_dark.css);
+@import url(./blocks/page/_theme_light/page_theme_light.css);
 
 @import url(./blocks/button/button.css);
 @import url(./blocks/button/_type_add/button_type_add.css);
@@ -18,6 +20,37 @@
 @import url(./blocks/button/_hidden/button_hidden.css);
 @import url(./blocks/button/_type_sun/button_type_sun.css);
 @import url(./blocks/button/_type_moon/button_type_moon.css);
+
+@import url(./blocks/close-button/close-button.css);
+@import url(./blocks/close-button/_theme_dark/close-button_theme_dark.css);
+@import url(./blocks/close-button/_theme_light/close-button_theme_light.css);
+
+@import url(./blocks/delete-button/delete-button.css);
+@import url(./blocks/delete-button/_hidden/delete-button_hidden.css);
+@import url(./blocks/delete-button/_theme_dark/delete-button_theme_dark.css);
+@import url(./blocks/delete-button/_theme_light/delete-button_theme_light.css);
+
+@import url(./blocks/like-button/like-button.css);
+@import url(./blocks/like-button/_active/like-button_active.css);
+@import url(./blocks/like-button/_theme_light/like-button_theme_light.css);
+@import url(./blocks/like-button/_theme_dark/like-button_theme_dark.css);
+
+@import url(./blocks/submit-button/submit-button.css);
+@import url(./blocks/submit-button/_disabled/submit-button_disabled.css);
+@import url(./blocks/submit-button/_theme_dark/submit-button_theme_dark.css);
+@import url(./blocks/submit-button/_theme_light/submit-button_theme_light.css);
+
+@import url(./blocks/add-button/add-button.css);
+@import url(./blocks/add-button/_theme_dark/add-button_theme_dark.css);
+@import url(./blocks/add-button/_theme_light/add-button_theme_light.css);
+
+@import url(./blocks/edit-button/edit-button.css);
+@import url(./blocks/edit-button/_theme_dark/edit-button_theme_dark.css);
+@import url(./blocks/edit-button/_theme_light/edit-button_theme_light.css);
+
+@import url(./blocks/theme-button/theme-button.css);
+@import url(./blocks/theme-button/_theme_dark/theme-button_theme_dark.css);
+@import url(./blocks/theme-button/_theme_light/theme-button_theme_light.css);
 
 @import url(./blocks/fieldset/fieldset.css);
 @import url(./blocks/field/field.css);
@@ -51,6 +84,8 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__logo/_theme_dark/header__logo_theme_dark.css);
+@import url(./blocks/header/__logo/_theme_light/header__logo_theme_light.css);
 
 @import url(./blocks/content/content.css);
 
@@ -74,6 +109,9 @@
 @import url(./blocks/element/__sidebar/element__sidebar.css);
 @import url(./blocks/element/__title/element__title.css);
 @import url(./blocks/element/__delete-button/element__delete-button.css);
+/* themes */ 
+@import url(./blocks/element/_theme_dark/element_theme_dark.css);
+@import url(./blocks/element/_theme_light/element_theme_light.css);
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);
@@ -101,5 +139,16 @@
 @import url(./blocks/register/__subtext-container/register__subtext-container.css);
 @import url(./blocks/register/__container/register__container.css);
 @import url(./blocks/register/__field/register__field.css);
+@import url(./blocks/register/__form/register__form.css);
+@import url(./blocks/register/__input/register__input.css);
+/* themes */
+@import url(./blocks/register/__form/_theme_dark/register__form_theme_dark.css);
+@import url(./blocks/register/__form/_theme_light/register__form_theme_light.css);
+@import url(./blocks/register/__input/_theme_dark/register__input_theme_dark.css);
+@import url(./blocks/register/__input/_theme_light/register__input_theme_light.css);
+@import url(./blocks/register/__field/_theme_dark/register__field_theme_dark.css);
+@import url(./blocks/register/__field/_theme_light/register__field_theme_light.css);
+@import url(./blocks/register/__submit-button/_theme_dark/register__submit-button_theme_dark.css);
+@import url(./blocks/register/__submit-button/_theme_light/register__submit-button_theme_light.css);
 
-@import url(./blocks/theme-switcher/theme-switcher.css);
+@import url(./blocks/theme-switcher/theme-switcher.css); 

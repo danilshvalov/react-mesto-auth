@@ -9,4 +9,11 @@ const getOnlyDOMProps = (props) => {
   }
 };
 
-export default getOnlyDOMProps;
+const addThemeAttrs = ({ theme, classList }) => {
+  return classList
+    .split(" ")
+    .map((className) => `${className} ${className}_theme_${theme}`)
+    .join(" ");
+};
+
+export { getOnlyDOMProps, addThemeAttrs};

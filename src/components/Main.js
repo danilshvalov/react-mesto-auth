@@ -2,6 +2,7 @@ import React from "react";
 import defaultAvatar from "../images/avatar.svg";
 import Card from "./Card";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import ThemeContext from "../contexts/ThemeContext";
 
 function Main({
   cards,
@@ -14,6 +15,7 @@ function Main({
 }) {
   // contexts
   const currentUser = React.useContext(CurrentUserContext);
+  const currentTheme = React.useContext(ThemeContext);
 
   return (
     <main className="content">
@@ -47,7 +49,7 @@ function Main({
         />
       </section>
 
-      <section className="elements">
+      <section className={`elements elements_theme_${currentTheme}`}>
         {cards.map((data) => {
           return (
             <Card

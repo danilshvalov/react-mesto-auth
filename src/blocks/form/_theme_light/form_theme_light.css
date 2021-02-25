@@ -1,4 +1,5 @@
 .form_theme_light {
   background-color: #000;
   color: white;
+  transition: 1s;
 }

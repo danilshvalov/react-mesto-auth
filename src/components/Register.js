@@ -36,7 +36,7 @@ function Register() {
   return (
     <section className="register">
       <div className="register__container">
-        <Form formClass="register__form" title="Регистрация">
+        <Form className="register__form" title="Регистрация">
           <fieldset className={fieldsetClass}>
             <Field
               {...emailInputSettings}
@@ -47,10 +47,12 @@ function Register() {
             <Field
               {...passwordInputSettings}
               onInput={setPasswordInput}
+              inputClass="register__input"
+              fieldClass="register__field"
             />
           </fieldset>
           <SubmitButton
-            className="form__submit-button button_light"
+            className="form__submit-button register__submit-button"
             text="Зарегистрироваться"
           />
         </Form>

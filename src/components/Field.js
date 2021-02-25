@@ -1,6 +1,6 @@
 import React from "react";
 import ThemeContext from "../contexts/ThemeContext";
-import getOnlyDOMProps from "../utils/utils";
+import {getOnlyDOMProps} from "../utils/utils";
 
 const Field = React.memo((props) => {
   // contexts

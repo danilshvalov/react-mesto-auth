@@ -1,4 +1,5 @@
 .form_theme_dark {
   background-color: #fff;
   color: #000;
+  transition: 1s;
 }

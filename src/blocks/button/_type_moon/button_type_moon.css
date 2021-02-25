@@ -1,8 +1,0 @@
-.button_type_moon {
-  width: 26px;
-  height: 26px;
-
-  background-image: url(../../../images/moon.svg);;
-
-  filter: invert(1);
-}

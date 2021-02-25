@@ -1,8 +1,10 @@
 import React from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import ThemeContext from "../contexts/ThemeContext";
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
+  const currentTheme = React.useContext(ThemeContext);
 
   // bool variables
   const isOwn = card.owner._id === currentUser._id;
@@ -30,7 +32,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   };
 
   return (
-    <article className="element">
+    <article className={`element element_theme_${currentTheme}`}>
       <img
         className="element__image"
         src={card.link}

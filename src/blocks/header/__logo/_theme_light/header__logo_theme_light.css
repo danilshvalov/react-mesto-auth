@@ -1,0 +1,4 @@
+.header__logo_theme_light {
+  filter: invert(1);
+  transition: 1s;
+}

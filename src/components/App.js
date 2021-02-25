@@ -156,7 +156,7 @@ function App() {
   };
 
   return (
-    <div style="background-color: white">
+    <div className={`page page_theme_${currentTheme}`}>
       <ThemeContext.Provider value={currentTheme}>
         <CurrentUserContext.Provider value={currentUser}>
           <Header onThemeSwitch={handleThemeSwitch} />
