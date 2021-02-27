@@ -6,8 +6,8 @@ function SubmitButton(props) {
   // проверка на undefined необходима для включения кнопки, если клиент не определил ее поведение
   const currentTheme = React.useContext(ThemeContext);
 
-  const defaultClass = "button";
-  const disabledClass = "button_type_submit-disabled";
+  const defaultClass = "submit-button button";
+  const disabledClass = `${defaultClass}_disabled`;
   const className = `${addThemeAttrs({
     theme: currentTheme,
     classList: `${defaultClass} ${props.className}`,

@@ -1,4 +1,4 @@
-const DOMProps = [
+export const DOMProps = [
   "abbr",
   "accept",
   "acceptCharset",
@@ -170,4 +170,150 @@ const DOMProps = [
   "onTransitionEnd",
 ];
 
-export default DOMProps;
+export const buttonClassNames = {
+  deleteButton: "button delete-button",
+  submitButton: "button submit-button",
+  addButton: "button add-button",
+  likeButton: "button like-button",
+  closeButton: "button close-button",
+  editButton: "button edit-button",
+};
+
+export const transparentFormClassNames = {
+  form: "form transparent-form",
+  input: "field__input transparent-form__input",
+  fieldset: "fieldset, transparent-form__fieldset",
+  field: "field transparent-form__field",
+  submitButton: "submit-button transparent-form__submit-button",
+};
+
+export const colorFormClassNames = {
+  form: "form color-form",
+  input: "field__input color-form__input",
+  fieldset: "fieldset color-form__fieldset",
+  field: "field color-form__field",
+  title: "color-form__title",
+  submitButton: "submit-button color-form__submit-button",
+};
+
+export const registerSettings = {
+  classNames: {
+    register: "register",
+    registerContainer: "register__container",
+    form: "form transparent-form register__form",
+    fieldset: "fieldset transparent-form__fieldset",
+    input: "field__input transparent-form__input register__input",
+    field: "field transparent-form__field register__field",
+    title: "transparent-form__title register__title",
+    submitButton:
+      "submit-button transparent-form__submit-button register__submit-button",
+    subtextContainer: "transparent-form__subtext register__subtext-container",
+    link: "transparent-form__link",
+  },
+  emailInput: {
+    name: "email",
+    type: "email",
+    defaultValue: "",
+    placeholder: "Email",
+    required: true,
+  },
+  passwordInput: {
+    name: "password",
+    type: "password",
+    defaultValue: "",
+    placeholder: "Пароль",
+    required: true,
+  },
+  attributes: {
+    titleText: "Регистрация",
+    submitButtonText: "Зарегистрироваться",
+    linkToLogin: "/signin",
+  },
+};
+
+export const addPlacePopupSettings = {
+  popup: {
+    name: "add-element",
+    title: "Новое место",
+  },
+  submitButton: {
+    defaultText: "Добавить",
+    loadingText: "Добавляем...",
+  },
+  titleInput: {
+    name: "title",
+    type: "text",
+    defaultValue: "",
+    placeholder: "Название",
+    minLength: "2",
+    maxLength: "30",
+    required: true,
+  },
+  linkInput: {
+    name: "link",
+    type: "url",
+    defaultValue: "",
+    placeholder: "Ссылка на картинку",
+    required: true,
+  },
+};
+
+export const editProfilePopupSettings = {
+  popup: {
+    name: "edit-profile",
+    title: "Редактировать профиль",
+  },
+  submitButton: {
+    defaultText: "Сохранить",
+    loadingText: "Сохранение...",
+  },
+  nameInput: {
+    name: "name",
+    type: "text",
+    placeholder: "Имя",
+    minLength: "2",
+    maxLength: "40",
+    required: true,
+  },
+  descriptionInput: {
+    name: "job",
+    type: "text",
+    placeholder: "Деятельность",
+    required: true,
+    minLength: "2",
+    maxLength: "200",
+  },
+};
+
+export const editAvatarPopupSettings = {
+  popup: {
+    name: "change-avatar",
+    title: "Обновить аватар",
+  },
+  submitButton: {
+    defaultText: "Сохранить",
+    loadingText: "Сохранение...",
+  },
+  avatarInput: {
+    name: "avatar",
+    type: "url",
+    defaultValue: "",
+    placeholder: "Ссылка на картинку",
+    required: true,
+  },
+};
+
+export const imagePopupClassNames = {
+  picture: "picture popup__picture",
+  image: "picture__image",
+  description: "picture__description",
+};
+
+export const messagePopupClassNames = {
+  name: "message",
+  container: "message-box popup__message-box",
+  textContainer: "message-box__text",
+  closeButton: "button close-button popup__close-button"
+};
+
+export const loadingSpinnerClassName = "loading-spinner";

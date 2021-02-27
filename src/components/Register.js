@@ -2,64 +2,51 @@ import React from "react";
 import Field from "./Field";
 import SubmitButton from "./SubmitButton";
 import Form from "./Form";
-import { NavLink } from "react-router-dom";
-import ThemeContext from "../contexts/ThemeContext";
+import { registerSettings } from "../utils/constants";
+import ColoredLink from "./ColoredLink";
+import ColoredTitle from "./ColoredTitle";
+import Fieldset from "./Fieldset";
 
 function Register() {
-  // contexts
-  const currentTheme = React.useContext(ThemeContext);
-
   // constants
-  const emailInputSettings = {
-    name: "email",
-    type: "email",
-    defaultValue: "",
-    placeholder: "Email",
-    required: true,
-  };
-  const passwordInputSettings = {
-    name: "password",
-    type: "password",
-    defaultValue: "",
-    placeholder: "Пароль",
-    required: true,
-  };
-
+  const {
+    classNames,
+    emailInput: emailInputSettings,
+    passwordInput: passwordInputSettings,
+    attributes,
+  } = registerSettings;
   // states
   const [emailInput, setEmailInput] = React.useState("");
   const [passwordInput, setPasswordInput] = React.useState("");
 
-  // classes
-  const fieldsetDefaultClass = "fieldset";
-  const fieldsetClass = `form__fieldset form__fieldset_theme_${currentTheme} fieldset fieldset_theme_${currentTheme}`;
-
   return (
-    <section className="register">
-      <div className="register__container">
-        <Form className="register__form" title="Регистрация">
-          <fieldset className={fieldsetClass}>
+    <section className={classNames.register}>
+      <div className={classNames.registerContainer}>
+        <Form className={classNames.form} title={attributes.titleText}>
+          <ColoredTitle className={classNames.title}>Регистрация</ColoredTitle>
+          <Fieldset className={classNames.fieldset}>
             <Field
               {...emailInputSettings}
               onInput={setEmailInput}
-              inputClass="register__input"
-              fieldClass="register__field"
+              inputClass={classNames.input}
+              fieldClass={classNames.field}
             />
             <Field
               {...passwordInputSettings}
               onInput={setPasswordInput}
-              inputClass="register__input"
-              fieldClass="register__field"
+              inputClass={classNames.input}
+              fieldClass={classNames.field}
             />
-          </fieldset>
+          </Fieldset>
           <SubmitButton
-            className="form__submit-button register__submit-button"
-            text="Зарегистрироваться"
+            className={classNames.submitButton}
+            text={attributes.submitButtonText}
           />
         </Form>
-        <div className="register__subtext-container">
-          <NavLink className="register__login-link" to="/signup">
+        <div className={classNames.subtextContainer}>
+          <ColoredLink className={classNames.link} to={attributes.linkToLogin}>
             Уже зарегистрированы? Войти
-          </NavLink>
+          </ColoredLink>
         </div>
       </div>
     </section>

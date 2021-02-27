@@ -2,25 +2,15 @@ import React from "react";
 import Field from "./Field";
 import PopupWithForm from "./PopupWithForm";
 import SubmitButton from "./SubmitButton";
+import { colorFormClassNames, editAvatarPopupSettings } from "../utils/constants";
+import Fieldset from "./Fieldset";
 
 function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
   // constants
-  const popupSettings = {
-    name: "change-avatar",
-    title: "Обновить аватар",
-  };
-  const submitButtonSettings = {
-    defaultText: "Сохранить",
-    loadingText: "Сохранение...",
-    className: "form__submit-button",
-  };
-  const avatarInputSettings = {
-    name: "avatar",
-    type: "url",
-    defaultValue: "",
-    placeholder: "Ссылка на картинку",
-    required: true,
-  };
+  const {
+    defaultText: defaultSubmitButtonText,
+    loadingText: loadingSubmitButtonText,
+  } = editAvatarPopupSettings.submitButton;
 
   // states
   const [avatarInput, setAvatarInput] = React.useState({
@@ -29,7 +19,7 @@ function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
   });
   const [isValid, setValid] = React.useState(false);
   const [submitButtonText, setSubmitButtonText] = React.useState(
-    submitButtonSettings.defaultText
+    defaultSubmitButtonText
   );
 
   // effects
@@ -41,9 +31,9 @@ function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (isValid) {
-      setSubmitButtonText(submitButtonSettings.loadingText);
+      setSubmitButtonText(loadingSubmitButtonText);
       onUpdateAvatar({ avatar: avatarInput.value }).finally(() => {
-        setSubmitButtonText(submitButtonSettings.defaultText);
+        setSubmitButtonText(defaultSubmitButtonText);
       });
     }
   };
@@ -53,22 +43,25 @@ function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-      {...popupSettings}
+      {...editAvatarPopupSettings.popup}
       submitButton={
         <SubmitButton
-          {...submitButtonSettings}
+          {...editAvatarPopupSettings.submitButton}
+          className={colorFormClassNames.submitButton}
           isEnabled={isValid}
           text={submitButtonText}
         />
       }
     >
-      <fieldset className="fieldset form__change-avatar-fieldset">
-          <Field
-            {...avatarInputSettings}
-            onInput={setAvatarInput}
-            isVisible={isOpen}
-          />
-      </fieldset>
+      <Fieldset className={colorFormClassNames.fieldset}>
+        <Field
+          {...editAvatarPopupSettings.avatarInput}
+          fieldClass={colorFormClassNames.field}
+          inputClass={colorFormClassNames.input}
+          onInput={setAvatarInput}
+          isVisible={isOpen}
+        />
+      </Fieldset>
     </PopupWithForm>
   );
 }

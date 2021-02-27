@@ -1,21 +1,14 @@
 import React from "react";
 import ThemeContext from "../contexts/ThemeContext";
+import { addThemeAttrs } from "../utils/utils";
 
 function ThemeSwitcher({ onThemeSwitch }) {
   // contexts
   const currentTheme = React.useContext(ThemeContext);
 
-  // states
-  const [themeButtonClass, setThemeButtonClass] = React.useState();
-
-  // effects
-  React.useEffect(() => {
-    if (currentTheme === "dark") {
-      setThemeButtonClass("button_type_sun");
-    } else {
-      setThemeButtonClass("button_type_moon");
-    }
-  }, [currentTheme]);
+  // classes
+  const defaultThemeButtonClass = "theme-button button";
+  const themeButtonClassName = addThemeAttrs({theme: currentTheme, classList: defaultThemeButtonClass});
 
   const handleThemeSwitch = () => {
     onThemeSwitch(currentTheme === "dark" ? "light" : "dark");
@@ -24,7 +17,7 @@ function ThemeSwitcher({ onThemeSwitch }) {
   return (
     <div className="theme-switcher">
       <button
-        className={`theme-switcher__button button ${themeButtonClass}`}
+        className={themeButtonClassName}
         onClick={handleThemeSwitch}
       />
     </div>

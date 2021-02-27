@@ -1,18 +1,20 @@
 import React from "react";
 import ThemeContext from "../contexts/ThemeContext";
-import {getOnlyDOMProps} from "../utils/utils";
+import { getOnlyDOMProps, addThemeAttrs } from "../utils/utils";
 
 const Field = React.memo((props) => {
   // contexts
   const currentTheme = React.useContext(ThemeContext);
 
-  // constants
-  const fieldDefaultClass = "field";
-  const inputDefaultClass = "field__input";
-
   // classes
-  const fieldClass = `${fieldDefaultClass} ${fieldDefaultClass}_theme_${currentTheme} ${props.fieldClass} ${props.fieldClass}_theme_${currentTheme}`;
-  const inputClass = `${inputDefaultClass} ${inputDefaultClass}_theme_${currentTheme} ${props.inputClass}_theme_${currentTheme}`;
+  const fieldClass = addThemeAttrs({
+    theme: currentTheme,
+    classList: props.fieldClass,
+  });
+  const inputClass = addThemeAttrs({
+    theme: currentTheme,
+    classList: props.inputClass,
+  });
 
   // states
   const [isValid, setValid] = React.useState(false);

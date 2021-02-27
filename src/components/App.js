@@ -14,6 +14,8 @@ import ConfirmPopup from "./ConfirmPopup";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import ThemeContext from "../contexts/ThemeContext";
+import { addThemeAttrs } from "../utils/utils";
+import * as theme from "../utils/theme";
 
 function App() {
   // states
@@ -36,7 +38,7 @@ function App() {
     avatar: "",
     _id: "",
   });
-  const [currentTheme, setCurrentTheme] = React.useState("dark");
+  const [currentTheme, setCurrentTheme] = React.useState(theme.getUserTheme());
   const [cards, setCards] = React.useState([]);
   const [
     cardCandidateForDeletion,
@@ -61,6 +63,10 @@ function App() {
   React.useEffect(() => {
     setIsAppLoading(isApiDataLoading || isDOMLoading);
   }, [isApiDataLoading, isDOMLoading]);
+
+  React.useEffect(() => {
+    theme.updateUserTheme(currentTheme);
+  }, [currentTheme]);
 
   // handlers
   const handleApiError = (promise, callback) => {
@@ -156,7 +162,7 @@ function App() {
   };
 
   return (
-    <div className={`page page_theme_${currentTheme}`}>
+    <div className={addThemeAttrs({ theme: currentTheme, classList: "page" })}>
       <ThemeContext.Provider value={currentTheme}>
         <CurrentUserContext.Provider value={currentUser}>
           <Header onThemeSwitch={handleThemeSwitch} />

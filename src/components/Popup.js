@@ -42,7 +42,7 @@ function Popup({ name, children, onClose, isOpen }) {
       <div className="popup__container" ref={popupContainerRef}>
         {children}
         <button
-          className="button button_type_close popup__close-button"
+          className="button close-button popup__close-button"
           type="button"
           ref={closeButtonRef}
         />

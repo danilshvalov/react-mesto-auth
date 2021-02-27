@@ -1,6 +1,8 @@
 import React from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import ThemeContext from "../contexts/ThemeContext";
+import { addThemeAttrs } from "../utils/utils";
+import PushButton from "./PushButton";
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -11,12 +13,26 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const isLiked = card.likes.some((user) => user._id === currentUser._id);
 
   // className variables
-  const cardDeleteButtonClassName = `button button_type_delete element__delete-button ${
-    isOwn ? "button_visible" : "button_hidden"
-  }`;
-  const cardLikeButtonClassName = `button button_type_like element__like-button ${
-    isLiked ? "button_like-active" : ""
-  }`;
+  const defaultDeleteButtonClass =
+    "button delete-button element__delete-button";
+  const defaultLikeButtonClass = "button like-button element__like-button";
+  const activeLikeButtonClass = "like-button_active";
+
+  const cardDeleteButtonClassName = `${addThemeAttrs({
+    theme: currentTheme,
+    classList: defaultDeleteButtonClass,
+  })} ${isOwn ? "" : "delete-button_hidden"}`;
+
+  const cardLikeButtonClassName = `${addThemeAttrs({
+    theme: currentTheme,
+    classList: defaultLikeButtonClass,
+  })} ${isLiked ? activeLikeButtonClass : ""}`;
+
+  const defaultElementClass = "element";
+  const elementClassName = addThemeAttrs({
+    theme: currentTheme,
+    classList: defaultElementClass,
+  });
 
   // handlers
   const handleClick = () => {
@@ -32,7 +48,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   };
 
   return (
-    <article className={`element element_theme_${currentTheme}`}>
+    <article className={elementClassName}>
       <img
         className="element__image"
         src={card.link}
@@ -42,14 +58,14 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
       <div className="element__sidebar">
         <h3 className="element__title">{card.name}</h3>
         <div className="element__like-container">
-          <button
+          <PushButton
             className={cardLikeButtonClassName}
             onClick={handleLike}
             type="button"
           />
           <span className="element__like-count">{card.likes.length}</span>
         </div>
-        <button
+        <PushButton
           className={cardDeleteButtonClassName}
           onClick={handleDelete}
           type="button"

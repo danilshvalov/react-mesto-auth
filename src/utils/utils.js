@@ -1,4 +1,4 @@
-import DOMProps from "./constants";
+import { DOMProps } from "./constants";
 
 const getOnlyDOMProps = (props) => {
   const attrs = Object.keys(props)
@@ -10,10 +10,11 @@ const getOnlyDOMProps = (props) => {
 };
 
 const addThemeAttrs = ({ theme, classList }) => {
-  return classList
-    .split(" ")
-    .map((className) => `${className} ${className}_theme_${theme}`)
-    .join(" ");
+  if (classList) {
+    return [...classList.split(" "), "smooth-appearance"]
+      .map((className) => `${className} ${className}_theme_${theme}`)
+      .join(" ");
+  }
 };
 
-export { getOnlyDOMProps, addThemeAttrs};
+export { getOnlyDOMProps, addThemeAttrs };

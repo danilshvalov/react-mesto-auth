@@ -1,35 +1,16 @@
 import React from "react";
 import Field from "./Field";
+import Fieldset from "./Fieldset";
 import PopupWithForm from "./PopupWithForm";
 import SubmitButton from "./SubmitButton";
+import { addPlacePopupSettings, colorFormClassNames } from "../utils/constants";
 
 function AddPlacePopup({ onClose, isOpen, onAddPlace }) {
   // constants
-  const popupSettings = {
-    name: "add-element",
-    title: "Новое место",
-  };
-  const submitButtonSettings = {
-    defaultText: "Добавить",
-    loadingText: "Добавляем...",
-    className: "form__submit-button",
-  };
-  const titleInputSettings = {
-    name: "title",
-    type: "text",
-    defaultValue: "",
-    placeholder: "Название",
-    minLength: "2",
-    maxLength: "30",
-    required: true,
-  };
-  const linkInputSettings = {
-    name: "link",
-    type: "url",
-    defaultValue: "",
-    placeholder: "Ссылка на картинку",
-    required: true,
-  };
+  const {
+    defaultText: defaultSubmitButtonText,
+    loadingText: loadingSubmitButtonText,
+  } = addPlacePopupSettings.submitButton;
 
   // states
   const [titleInput, setTitleInput] = React.useState({
@@ -42,7 +23,7 @@ function AddPlacePopup({ onClose, isOpen, onAddPlace }) {
   });
   const [isValid, setValid] = React.useState(false);
   const [submitButtonText, setSubmitButtonText] = React.useState(
-    submitButtonSettings.defaultText
+    defaultSubmitButtonText
   );
 
   // effects
@@ -55,10 +36,10 @@ function AddPlacePopup({ onClose, isOpen, onAddPlace }) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (isValid) {
-      setSubmitButtonText(submitButtonSettings.loadingText);
+      setSubmitButtonText(loadingSubmitButtonText);
       onAddPlace({ name: titleInput.value, link: linkInput.value }).finally(
         () => {
-          setSubmitButtonText(submitButtonSettings.defaultText);
+          setSubmitButtonText(defaultSubmitButtonText);
         }
       );
     }
@@ -66,30 +47,37 @@ function AddPlacePopup({ onClose, isOpen, onAddPlace }) {
 
   return (
     <PopupWithForm
+      {...addPlacePopupSettings.popup}
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-      {...popupSettings}
+      formClass={colorFormClassNames.form}
+      titleClass={colorFormClassNames.title}
       submitButton={
         <SubmitButton
-          {...submitButtonSettings}
+          {...addPlacePopupSettings.submitButton}
+          className={colorFormClassNames.submitButton}
           isEnabled={isValid}
           text={submitButtonText}
         />
       }
     >
-      <fieldset className="fieldset form__add-element-fieldset">
+      <Fieldset className={colorFormClassNames.fieldset}>
         <Field
-          {...titleInputSettings}
+          {...addPlacePopupSettings.titleInput}
+          fieldClass={colorFormClassNames.field}
+          inputClass={colorFormClassNames.input}
           onInput={setTitleInput}
           isVisible={isOpen}
         />
         <Field
-          {...linkInputSettings}
+          {...addPlacePopupSettings.linkInput}
+          fieldClass={colorFormClassNames.field}
+          inputClass={colorFormClassNames.input}
           onInput={setLinkInput}
           isVisible={isOpen}
         />
-      </fieldset>
+      </Fieldset>
     </PopupWithForm>
   );
 }

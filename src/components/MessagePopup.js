@@ -1,17 +1,18 @@
-function MessagePopup({message, isOpen, onClose}) {
+import PushButton from "./PushButton";
+import Popup from "./Popup";
+import { messagePopupClassNames } from "../utils/constants";
+
+function MessagePopup({ message, onClose, isOpen }) {
   return (
-    <div className={`popup popup_type_message ${isOpen && "popup_opened"}`}>
-      <div className="popup__container">
-        <div className="popup__message-box message-box">
-          <span className="message-box__text">{message}</span>
-        </div>
-        <button
-          className="popup__close-button popup__close-button_indent button button_type_close button_small-size button_inverted-color"
-          type="button"
-          onClick={onClose}
-        />
+    <Popup name={messagePopupClassNames.name} onClose={onClose} isOpen={isOpen}>
+      <div className={messagePopupClassNames.container}>
+        <span className={messagePopupClassNames.textContainer}>{message}</span>
       </div>
-    </div>
+      <PushButton
+        className={messagePopupClassNames.closeButton}
+        onClick={onClose}
+      />
+    </Popup>
   );
 }
 

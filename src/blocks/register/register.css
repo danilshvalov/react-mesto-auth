@@ -1,8 +1,10 @@
 .register {
   display: block;
   width: 100%;
-  height: 40vw;
+  height: 100%;
 
-  margin: 0 auto;
+  background-color: inherit;
 
+  margin: 60px auto 80px;
+  padding: 0;
 }

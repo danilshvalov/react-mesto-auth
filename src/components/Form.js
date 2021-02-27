@@ -1,14 +1,16 @@
 import React from "react";
 import ThemeContext from "../contexts/ThemeContext";
-import {getOnlyDOMProps} from "../utils/utils";
+import {addThemeAttrs, getOnlyDOMProps} from "../utils/utils";
 
 function Form(props) {
+  // contexts
   const currentTheme = React.useContext(ThemeContext);
 
-  const formClass = `form form_theme_${currentTheme} ${props.className} ${props.formClass}_theme_${currentTheme}`;
-
+  // classes
+  const defaultFormClass = "form";
+  const formClassName = addThemeAttrs({theme: currentTheme, classList: `${defaultFormClass} ${props.className}`});
   return (
-    <form {...getOnlyDOMProps(props)} className={formClass}>
+    <form {...getOnlyDOMProps(props)} className={formClassName}>
       {props.children}
     </form>
   );

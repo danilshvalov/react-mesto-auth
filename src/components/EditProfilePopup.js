@@ -3,34 +3,18 @@ import PopupWithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import Field from "./Field";
 import SubmitButton from "./SubmitButton";
+import {
+  colorFormClassNames,
+  editProfilePopupSettings,
+} from "../utils/constants";
+import Fieldset from "./Fieldset";
 
 function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
   // constants
-  const popupSettings = {
-    name: "edit-profile",
-    title: "Редактировать профиль",
-  };
-  const submitButtonSettings = {
-    defaultText: "Сохранить",
-    loadingText: "Сохранение...",
-    className: "form__submit-button",
-  };
-  const nameInputSettings = {
-    name: "name",
-    type: "text",
-    placeholder: "Имя",
-    minLength: "2",
-    maxLength: "40",
-    required: true,
-  };
-  const descriptionInputSettings = {
-    name: "job",
-    type: "text",
-    placeholder: "Деятельность",
-    required: true,
-    minLength: "2",
-    maxLength: "200",
-  };
+  const {
+    defaultText: defaultSubmitButtonText,
+    loadingText: loadingSubmitButtonText,
+  } = editProfilePopupSettings.submitButton;
 
   // contexts
   const currentUser = React.useContext(CurrentUserContext);
@@ -46,7 +30,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
   });
   const [isValid, setValid] = React.useState(false);
   const [submitButtonText, setSubmitButtonText] = React.useState(
-    submitButtonSettings.defaultText
+    defaultSubmitButtonText
   );
 
   React.useEffect(() => {
@@ -58,12 +42,12 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (isValid) {
-      setSubmitButtonText(submitButtonSettings.loadingText);
+      setSubmitButtonText(loadingSubmitButtonText);
       onUpdateUser({
         name: nameInput.value,
         about: descriptionInput.value,
       }).finally(() => {
-        setSubmitButtonText(submitButtonSettings.defaultText);
+        setSubmitButtonText(defaultSubmitButtonText);
       });
     }
   };
@@ -73,29 +57,34 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-      {...popupSettings}
+      {...editProfilePopupSettings.popup}
       submitButton={
         <SubmitButton
-          {...submitButtonSettings}
+          {...editProfilePopupSettings.submitButton}
+          className={colorFormClassNames.submitButton}
           isEnabled={isValid}
           text={submitButtonText}
         />
       }
     >
-      <fieldset className="fieldset form__edit-profile-fieldset">
-          <Field
-            {...nameInputSettings}
-            onInput={setNameInput}
-            isVisible={isOpen}
-            defaultValue={currentUser.name}
-          />
-          <Field
-            {...descriptionInputSettings}
-            onInput={setDescriptionInput}
-            isVisible={isOpen}
-            defaultValue={currentUser.about}
-          />
-      </fieldset>
+      <Fieldset className={colorFormClassNames.fieldset}>
+        <Field
+          {...editProfilePopupSettings.nameInput}
+          fieldClass={colorFormClassNames.field}
+          inputClass={colorFormClassNames.input}
+          onInput={setNameInput}
+          isVisible={isOpen}
+          defaultValue={currentUser.name}
+        />
+        <Field
+          {...editProfilePopupSettings.descriptionInput}
+          fieldClass={colorFormClassNames.field}
+          inputClass={colorFormClassNames.input}
+          onInput={setDescriptionInput}
+          isVisible={isOpen}
+          defaultValue={currentUser.about}
+        />
+      </Fieldset>
     </PopupWithForm>
   );
 }

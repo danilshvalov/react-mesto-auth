@@ -3,6 +3,7 @@ import defaultAvatar from "../images/avatar.svg";
 import Card from "./Card";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import ThemeContext from "../contexts/ThemeContext";
+import PushButton from "./PushButton";
 
 function Main({
   cards,
@@ -26,7 +27,7 @@ function Main({
             src={currentUser.avatar || defaultAvatar}
             alt="Аватар пользователя"
           />
-          <button
+          <PushButton
             className="button profile__edit-avatar-button"
             onClick={onEditAvatar}
           />
@@ -34,18 +35,16 @@ function Main({
         <div className="profile__text">
           <div className="profile__name-container">
             <h1 className="profile__name">{currentUser.name}</h1>
-            <button
-              className="button button_type_edit profile__edit-button"
+            <PushButton
+              className="button edit-button profile__edit-button"
               onClick={onEditProfile}
-              type="button"
             />
           </div>
           <p className="profile__about">{currentUser.about}</p>
         </div>
-        <button
-          className="button button_type_add profile__add-button"
+        <PushButton
+          className="button add-button profile__add-button"
           onClick={onAddPlace}
-          type="button"
         />
       </section>
 
