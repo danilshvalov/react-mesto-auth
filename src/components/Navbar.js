@@ -1,18 +1,18 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { navbarClassNames } from "../utils/constants";
+import { navbarClassNames, linkPaths } from "../utils/constants";
 import ColoredLink from "./ColoredLink";
 
 function Navbar(props) {
   return (
     <nav className={navbarClassNames.navbar}>
-      <ul className="navbar__container">
-        <Route exact path="/">
-          <li className="navbar__item">{props.email}</li>
-          <li className="navbar__item">
+      <ul className={navbarClassNames.container}>
+        <Route exact path={linkPaths.mainPage}>
+          <li className={navbarClassNames.item}>{props.email}</li>
+          <li className={navbarClassNames.item}>
             <ColoredLink
-              to="/sign-in"
-              className="navbar__link navbar__link_type_dim"
+              to={linkPaths.loginPage}
+              className={navbarClassNames.dimLink}
               onClick={props.onSignOut}
             >
               Выйти
@@ -20,17 +20,23 @@ function Navbar(props) {
           </li>
         </Route>
 
-        <Route path="/sign-up">
-          <li className="navbar__item">
-            <ColoredLink to="/sign-in" className="navbar__link">
+        <Route path={linkPaths.registerPage}>
+          <li className={navbarClassNames.item}>
+            <ColoredLink
+              to={linkPaths.loginPage}
+              className={navbarClassNames.link}
+            >
               Войти
             </ColoredLink>
           </li>
         </Route>
 
-        <Route path="/sign-in">
-          <li className="navbar__item">
-            <ColoredLink to="/sign-up" className="navbar__link">
+        <Route path={linkPaths.loginPage}>
+          <li className={navbarClassNames.item}>
+            <ColoredLink
+              to={linkPaths.registerPage}
+              className={navbarClassNames.link}
+            >
               Регистрация
             </ColoredLink>
           </li>

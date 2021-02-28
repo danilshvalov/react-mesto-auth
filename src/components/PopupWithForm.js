@@ -3,6 +3,7 @@ import Popup from "./Popup";
 import Form from "./Form";
 import { addThemeAttrs } from "../utils/utils";
 import ThemeContext from "../contexts/ThemeContext";
+import { popupClassNames } from "../utils/constants";
 
 function PopupWithForm({
   name,
@@ -21,7 +22,7 @@ function PopupWithForm({
   // classes
   const formClassName = addThemeAttrs({
     theme: currentTheme,
-    classList: `${formClass} popup__${name}-form`,
+    classList: `${formClass} ${popupClassNames.popup}__${name}-form`,
   });
   const titleClassName = addThemeAttrs({
     theme: currentTheme,
@@ -31,7 +32,7 @@ function PopupWithForm({
   return (
     <Popup name={name} isOpen={isOpen} onClose={onClose}>
       <Form
-        className={`popup__${name}-form ${formClassName}`}
+        className={`${popupClassNames.popup}__${name}-form ${formClassName}`}
         method="POST"
         action="/"
         name={name}

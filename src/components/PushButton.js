@@ -10,7 +10,7 @@ function PushButton(props) {
     classList: props.className,
   });
 
-  return <button {...getOnlyDOMProps(props)} className={buttonClassName}>{props.childer}</button>;
+  return <button {...getOnlyDOMProps(props)} className={buttonClassName}>{props.children}</button>;
 }
 
 export default PushButton;

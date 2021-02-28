@@ -1,4 +1,6 @@
 import React from "react";
+import PushButton from "./PushButton";
+import { popupClassNames } from "../utils/constants";
 
 function Popup({ name, children, onClose, isOpen }) {
   // constants
@@ -35,16 +37,18 @@ function Popup({ name, children, onClose, isOpen }) {
   }, [isOpen, onClose]);
   return (
     <div
-      className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}
+      className={`${popupClassNames.popup} ${
+        popupClassNames.popup
+      }_type_${name} ${isOpen && popupClassNames.popupOpenedClass}`}
       ref={popupWrapperRef}
       onClick={handleClose}
     >
-      <div className="popup__container" ref={popupContainerRef}>
+      <div className={popupClassNames.container} ref={popupContainerRef}>
         {children}
-        <button
-          className="button close-button popup__close-button"
-          type="button"
+        <PushButton
+          className={popupClassNames.closeButton}
           ref={closeButtonRef}
+          onClick={onClose}
         />
       </div>
     </div>

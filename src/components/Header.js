@@ -26,10 +26,10 @@ function Header(props) {
     <header className={headerClassName}>
       <img className={logoClassName} src={logo} alt="Места России" />
       <div className={headerClassNames.container}>
-        <div className="header__item">
+        <div className={headerClassNames.item}>
           <ThemeSwitcher onThemeSwitch={props.onThemeSwitch} />
         </div>
-        <div className="header__item">
+        <div className={headerClassNames.item}>
           <Navbar email={props.email} onSignOut={props.onSignOut} />
         </div>
       </div>

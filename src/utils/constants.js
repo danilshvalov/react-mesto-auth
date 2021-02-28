@@ -357,24 +357,53 @@ export const messagePopupClassNames = {
 export const confirmPopupClassNames = {
   popup: {
     name: "confirm",
-    title: "Вы уверены?"
+    title: "Вы уверены?",
   },
   submitButton: {
     defaultText: "Да",
-    loadingText: "Удаление..."
-  }
+    loadingText: "Удаление...",
+  },
 };
 
 export const headerClassNames = {
   header: "header",
   logo: "header__logo",
   container: "header__container",
+  item: "header__item"
 };
 
 export const navbarClassNames = {
   navbar: "navbar",
   link: "navbar__link",
+  dimLink: "navbar__link navbar__link_type_dim",
+  item: "navbar__item",
+  container: "navbar__container",
 };
+
+export const cardClassNames = {
+  element: "element",
+  image: "element__image",
+  deleteButton: "button delete-button element__delete-button",
+  deleteButtonHiddenClass: "delete-button_hidden",
+  likeButton: "button like-button element__like-button",
+  likeButtonActiveClass: "like-button_active",
+  sideBar: "element__sidebar",
+  title: "element__title",
+  likeContainer: "element__like-container",
+  likeCount: "element__like-count",
+};
+
+export const popupClassNames = {
+  popup: "popup",
+  popupOpenedClass: "popup_opened",
+  container: "popup__container",
+  closeButton: "button close-button popup__close-button"
+}
+
+export const footerClassNames = {
+  footer: "footer",
+  copyright: "footer__copyright"
+}
 
 export const loadingSpinnerClassName = "loading-spinner";
 
@@ -382,4 +411,9 @@ export const linkPaths = {
   loginPage: "sign-in/",
   mainPage: "/",
   registerPage: "sign-up",
+};
+
+export const themeSwitcherClassNames = {
+  themeButton: "button theme-button",
+  themeSwitcher: "theme-switcher"
 };

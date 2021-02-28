@@ -4,7 +4,10 @@ import { addThemeAttrs } from "../utils/utils";
 import { loadingSpinnerClassName } from "../utils/constants";
 
 function LoadingSpinner() {
+  // contexts
   const currentTheme = React.useContext(ThemeContext);
+
+  // classes
   const spinnerClassName = addThemeAttrs({
     theme: currentTheme,
     classList: loadingSpinnerClassName,
