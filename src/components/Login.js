@@ -3,10 +3,8 @@ import Field from "./Field";
 import SubmitButton from "./SubmitButton";
 import Form from "./Form";
 import { loginSettings } from "../utils/constants";
-import ColoredLink from "./ColoredLink";
 import ColoredTitle from "./ColoredTitle";
 import Fieldset from "./Fieldset";
-import { useRouteMatch } from "react-router-dom";
 
 function Login(props) {
   // constants
@@ -16,14 +14,38 @@ function Login(props) {
     passwordInput: passwordInputSettings,
     attributes,
   } = loginSettings;
+
   // states
-  const [emailInput, setEmailInput] = React.useState("");
-  const [passwordInput, setPasswordInput] = React.useState("");
+  const [isValid, setValid] = React.useState(false);
+  const [emailInput, setEmailInput] = React.useState({
+    value: "",
+    isValid: false,
+  });
+  const [passwordInput, setPasswordInput] = React.useState({
+    value: "",
+    isValid: false,
+  });
+  const [submitButtonText, setSubmitButtonText] = React.useState(
+    attributes.submitButtonDefaultText
+  );
+
+  // effects
+  React.useEffect(() => {
+    const inputs = [emailInput, passwordInput];
+    setValid(inputs.every(({ isValid }) => isValid));
+  }, [passwordInput, emailInput]);
 
   // handlers
   const handleLogin = (evt) => {
     evt.preventDefault();
-    props.onLogin({ email: emailInput.value, password: passwordInput.value });
+    if (isValid) {
+      setSubmitButtonText(attributes.submitButtonLoadingText);
+      props
+        .onLogin({ email: emailInput.value, password: passwordInput.value })
+        .finally(() => {
+          setSubmitButtonText(attributes.submitButtonDefaultText);
+        });
+    }
   };
 
   return (
@@ -49,7 +71,8 @@ function Login(props) {
           </Fieldset>
           <SubmitButton
             className={classNames.submitButton}
-            text={attributes.submitButtonText}
+            text={submitButtonText}
+            isEnabled={isValid}
           />
         </Form>
       </div>

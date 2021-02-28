@@ -33,7 +33,6 @@ class Auth {
     });
   }
   register({ email, password }) {
-    console.log(email, password);
     const errorIdentifier = (code) => {
       if (code === 400) {
         return "Некорректно заполнено одно из полей. Повторите попытку снова";

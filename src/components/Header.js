@@ -5,7 +5,6 @@ import ThemeContext from "../contexts/ThemeContext";
 import { addThemeAttrs } from "../utils/utils";
 import { headerClassNames } from "../utils/constants";
 import Navbar from "./Navbar";
-import { NavLink, Route } from "react-router-dom";
 
 function Header(props) {
   // contexts

@@ -11,9 +11,12 @@ const getOnlyDOMProps = (props) => {
 
 const addThemeAttrs = ({ theme, classList }) => {
   if (classList) {
-    return [...classList.split(" "), "smooth-appearance"]
-      .map((className) => `${className} ${className}_theme_${theme}`)
-      .join(" ");
+    return [
+      ...classList
+        .split(" ")
+        .map((className) => `${className} ${className}_theme_${theme}`),
+      "smooth-appearance",
+    ].join(" ");
   }
 };
 

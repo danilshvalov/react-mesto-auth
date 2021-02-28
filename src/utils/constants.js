@@ -226,8 +226,8 @@ export const registerSettings = {
   },
   attributes: {
     titleText: "Регистрация",
-    submitButtonText: "Зарегистрироваться",
-    linkToLogin: "/sign-in",
+    submitButtonDefaultText: "Зарегистрироваться",
+    submitButtonLoadingText: "Регистрируем...",
   },
 };
 
@@ -259,7 +259,8 @@ export const loginSettings = {
   },
   attributes: {
     titleText: "Вход",
-    submitButtonText: "Войти",
+    submitButtonDefaultText: "Войти",
+    submitButtonLoadingText: "Входим...",
   },
 };
 
@@ -269,8 +270,8 @@ export const addPlacePopupSettings = {
     title: "Новое место",
   },
   submitButton: {
-    defaultText: "Добавить",
-    loadingText: "Добавляем...",
+    defaultText: "Создать",
+    loadingText: "Создаем...",
   },
   titleInput: {
     name: "title",
@@ -288,6 +289,7 @@ export const addPlacePopupSettings = {
     placeholder: "Ссылка на картинку",
     required: true,
   },
+  fieldsetClassName: "popup__add-element-fieldset"
 };
 
 export const editProfilePopupSettings = {
@@ -315,6 +317,7 @@ export const editProfilePopupSettings = {
     minLength: "2",
     maxLength: "200",
   },
+  fieldsetClassName: "popup__edit-profile-fieldset"
 };
 
 export const editAvatarPopupSettings = {
@@ -333,6 +336,7 @@ export const editAvatarPopupSettings = {
     placeholder: "Ссылка на картинку",
     required: true,
   },
+  fieldsetClassName: "popup__change-avatar-fieldset"
 };
 
 export const infoTooltipClassNames = {
@@ -408,9 +412,9 @@ export const footerClassNames = {
 export const loadingSpinnerClassName = "loading-spinner";
 
 export const linkPaths = {
-  loginPage: "sign-in/",
+  loginPage: "/sign-in",
   mainPage: "/",
-  registerPage: "sign-up",
+  registerPage: "/sign-up",
 };
 
 export const themeSwitcherClassNames = {

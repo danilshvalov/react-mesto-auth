@@ -2,7 +2,7 @@ import React from "react";
 import ThemeContext from "../contexts/ThemeContext";
 import { addThemeAttrs, getOnlyDOMProps } from "../utils/utils";
 
-function ColoredTitle(props) {
+const ColoredTitle = React.memo((props) => {
   // contexts
   const currentTheme = React.useContext(ThemeContext);
 
@@ -16,6 +16,6 @@ function ColoredTitle(props) {
       {props.children}
     </h2>
   );
-}
+});
 
 export default ColoredTitle;

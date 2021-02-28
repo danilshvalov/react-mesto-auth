@@ -62,7 +62,9 @@ function AddPlacePopup({ onClose, isOpen, onAddPlace }) {
         />
       }
     >
-      <Fieldset className={colorFormClassNames.fieldset}>
+      <Fieldset
+        className={`${colorFormClassNames.fieldset} ${addPlacePopupSettings.fieldsetClassName}`}
+      >
         <Field
           {...addPlacePopupSettings.titleInput}
           fieldClass={colorFormClassNames.field}

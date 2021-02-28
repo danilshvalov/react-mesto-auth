@@ -69,7 +69,9 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
         />
       }
     >
-      <Fieldset className={colorFormClassNames.fieldset}>
+      <Fieldset
+        className={`${colorFormClassNames.fieldset} ${editProfilePopupSettings.fieldsetClassName}`}
+      >
         <Field
           {...editProfilePopupSettings.nameInput}
           fieldClass={colorFormClassNames.field}

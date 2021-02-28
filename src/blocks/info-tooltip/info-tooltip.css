@@ -1,12 +1,14 @@
 .info-tooltip {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 358px;
+
+  width: 315px;
   height: 210px;
   padding: 60px;
   border-radius: 10px;
-  position: relative;
+
   cursor: default;
+
+  margin: 40px;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import ThemeContext from "../contexts/ThemeContext";
 import { getOnlyDOMProps, addThemeAttrs } from "../utils/utils";
 
-function PushButton(props) {
+const PushButton = React.memo((props) => {
   const currentTheme = React.useContext(ThemeContext);
 
   const buttonClassName = addThemeAttrs({
@@ -10,7 +10,11 @@ function PushButton(props) {
     classList: props.className,
   });
 
-  return <button {...getOnlyDOMProps(props)} className={buttonClassName}>{props.children}</button>;
-}
+  return (
+    <button {...getOnlyDOMProps(props)} className={buttonClassName}>
+      {props.children}
+    </button>
+  );
+});
 
 export default PushButton;

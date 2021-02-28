@@ -20,6 +20,7 @@ import auth from "../utils/auth";
 import Login from "./Login";
 import { Route, Switch, useHistory } from "react-router-dom";
 import InfoTooltip from "./InfoTooltip";
+import { linkPaths } from "../utils/constants";
 
 function App() {
   // states
@@ -63,10 +64,83 @@ function App() {
   document.addEventListener("DOMContentLoaded", () => {
     setDOMLoading(false);
   });
+
+  // ---------------------------------------------------------------
+
+  // auth-handlers
+  const handleLogin = (data) => {
+    return auth
+      .authorize(data)
+      .then((res) => {
+        updateToken(res);
+        setLoggedIn(true);
+        setEmail(data.email);
+        openInfoTooltip({
+          message: "Вы успешно авторизовались!",
+          redirectPath: linkPaths.mainPage,
+          isSuccess: true,
+        });
+      })
+      .catch((errorMessage) => {
+        openInfoTooltip({ message: errorMessage, isSuccess: false });
+      });
+  };
+
+  const handleRegister = (data) => {
+    return auth
+      .register(data)
+      .then((res) => {
+        updateToken(res);
+        openInfoTooltip({
+          message: "Вы успешно зарегистрировались!",
+          redirectPath: linkPaths.loginPage,
+          isSuccess: true,
+        });
+      })
+      .catch((errorMessage) => {
+        setActionSuccess(false);
+        openInfoTooltip({
+          message: errorMessage,
+          isSuccess: false,
+        });
+      });
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    history.push("/sign-in");
+  };
+
   // effects
   React.useEffect(() => {
+    const loadApiData = () => {
+      handleApiError(
+        Promise.all([api.getUserInfo(), api.getInitialCards()]),
+        (result) => {
+          const [userInfo, initialCards] = result;
+          setCurrentUser(userInfo);
+          setCards(initialCards);
+          setApiDataLoading(false);
+        }
+      );
+    };
+
+    const handleTokenCheck = () => {
+      const jwt = localStorage.getItem("jwt");
+      if (jwt) {
+        auth.checkToken(jwt).then((res) => {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          loadApiData();
+        });
+      } else {
+        setLoggedIn(false);
+        setApiDataLoading(false);
+      }
+    };
     handleTokenCheck();
-  }, []);
+  }, [isLoggedIn, history]);
 
   React.useEffect(() => {
     setIsAppLoading(isApiDataLoading || isDOMLoading);
@@ -97,18 +171,6 @@ function App() {
     setActionSuccess(isSuccess);
     setInfoTooltipData({ message, redirectPath });
     setInfoTooltipPopupOpen(true);
-  };
-
-  const loadApiData = () => {
-    handleApiError(
-      Promise.all([api.getUserInfo(), api.getInitialCards()]),
-      (result) => {
-        const [userInfo, initialCards] = result;
-        setCurrentUser(userInfo);
-        setCards(initialCards);
-        setApiDataLoading(false);
-      }
-    );
   };
 
   // handlers
@@ -169,67 +231,6 @@ function App() {
     } else {
       setCurrentTheme("dark");
     }
-  };
-  // ---------------------------------------------------------------
-
-  // auth-handlers
-  const handleLogin = (data) => {
-    auth
-      .authorize(data)
-      .then((res) => {
-        updateToken(res);
-        setLoggedIn(true);
-        setEmail(data.email);
-        openInfoTooltip({
-          message: "успех",
-          redirectPath: "/",
-          isSuccess: true,
-        });
-        loadApiData();
-      })
-      .catch((errorMessage) => {
-        openInfoTooltip({ message: errorMessage, isSuccess: false });
-      });
-  };
-
-  const handleRegister = (data) => {
-    auth
-      .register(data)
-      .then((res) => {
-        updateToken(res);
-        openInfoTooltip({
-          message: "успех",
-          redirectPath: "/sign-in",
-          isSuccess: true,
-        });
-      })
-      .catch((errorMessage) => {
-        setActionSuccess(false);
-        openInfoTooltip({
-          message: "успех",
-          isSuccess: false,
-        });
-      });
-  };
-
-  const handleTokenCheck = () => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      auth.checkToken(jwt).then((res) => {
-        setLoggedIn(true);
-        setEmail(res.data.email);
-        loadApiData();
-        history.push("/");
-      });
-    } else {
-      setLoggedIn(false);
-    }
-  };
-
-  const handleSignOut = () => {
-    localStorage.removeItem("jwt");
-    setLoggedIn(false);
-    history.push("/sign-in");
   };
 
   // ---------------------------------------------------------------

@@ -2,11 +2,10 @@ import React from "react";
 import Field from "./Field";
 import SubmitButton from "./SubmitButton";
 import Form from "./Form";
-import { registerSettings } from "../utils/constants";
+import { linkPaths, registerSettings } from "../utils/constants";
 import ColoredLink from "./ColoredLink";
 import ColoredTitle from "./ColoredTitle";
 import Fieldset from "./Fieldset";
-import { use } from "react-router-dom";
 
 function Register(props) {
   // constants
@@ -16,14 +15,41 @@ function Register(props) {
     passwordInput: passwordInputSettings,
     attributes,
   } = registerSettings;
+
   // states
-  const [emailInput, setEmailInput] = React.useState("");
-  const [passwordInput, setPasswordInput] = React.useState("");
+  const [isValid, setValid] = React.useState(false);
+  const [emailInput, setEmailInput] = React.useState({
+    value: "",
+    isValid: false,
+  });
+  const [passwordInput, setPasswordInput] = React.useState({
+    value: "",
+    isValid: false,
+  });
+  const [submitButtonText, setSubmitButtonText] = React.useState(
+    attributes.submitButtonDefaultText
+  );
+
+  // effects
+  React.useEffect(() => {
+    const inputs = [emailInput, passwordInput];
+    setValid(inputs.every(({ isValid }) => isValid));
+  }, [passwordInput, emailInput]);
 
   // handlers
   const handleRegister = (evt) => {
     evt.preventDefault();
-    props.onRegister({ email: emailInput.value, password: passwordInput.value });
+    if (isValid) {
+      setSubmitButtonText(attributes.submitButtonLoadingText);
+      props
+        .onRegister({
+          email: emailInput.value,
+          password: passwordInput.value,
+        })
+        .finally(() => {
+          setSubmitButtonText(attributes.submitButtonDefaultText);
+        });
+    }
   };
 
   return (
@@ -49,11 +75,12 @@ function Register(props) {
           </Fieldset>
           <SubmitButton
             className={classNames.submitButton}
-            text={attributes.submitButtonText}
+            text={submitButtonText}
+            isEnabled={isValid}
           />
         </Form>
         <div className={classNames.subtextContainer}>
-          <ColoredLink className={classNames.link} to={attributes.linkToLogin}>
+          <ColoredLink className={classNames.link} to={linkPaths.loginPage}>
             Уже зарегистрированы? Войти
           </ColoredLink>
         </div>

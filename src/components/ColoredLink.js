@@ -3,7 +3,7 @@ import ThemeContext from "../contexts/ThemeContext";
 import { addThemeAttrs, getOnlyDOMProps } from "../utils/utils";
 import { NavLink } from "react-router-dom";
 
-function ColoredLink(props) {
+const ColoredLink = React.memo((props) => {
   // contexts
   const currentTheme = React.useContext(ThemeContext);
 
@@ -14,10 +14,14 @@ function ColoredLink(props) {
   });
 
   return (
-    <NavLink to={props.to} {...getOnlyDOMProps(props)} className={linkClassName}>
+    <NavLink
+      to={props.to}
+      {...getOnlyDOMProps(props)}
+      className={linkClassName}
+    >
       {props.children}
     </NavLink>
   );
-}
+});
 
 export default ColoredLink;

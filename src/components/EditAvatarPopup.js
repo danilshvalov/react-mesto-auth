@@ -58,7 +58,9 @@ function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
         />
       }
     >
-      <Fieldset className={colorFormClassNames.fieldset}>
+      <Fieldset
+        className={`${colorFormClassNames.fieldset} ${editAvatarPopupSettings.fieldsetClassName}`}
+      >
         <Field
           {...editAvatarPopupSettings.avatarInput}
           fieldClass={colorFormClassNames.field}
