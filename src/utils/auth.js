@@ -35,7 +35,7 @@ class Auth {
   register({ email, password }) {
     const errorIdentifier = (code) => {
       if (code === 400) {
-        return "Некорректно заполнено одно из полей. Повторите попытку снова";
+        return "Такой пользователь уже существует";
       }
     };
 
@@ -50,9 +50,9 @@ class Auth {
   authorize({ email, password }) {
     const errorIdentifier = (code) => {
       if (code === 400) {
-        return "Не все поля были заполнены. Повторите попытку снова";
+        return "Не все поля были заполнены";
       } else if (code === 401) {
-        return `Пользователь с email «${email}» не найден`;
+        return `Неверный email или пароль`;
       }
     };
 
@@ -67,9 +67,9 @@ class Auth {
   checkToken(token) {
     const errorIdentifier = (code) => {
       if (code === 400) {
-        return "Токен авторизации не был передан или передан в неверном формате. Повторите попытку снова";
+        return "Токен авторизации не был передан или передан в неверном формате";
       } else if (code === 401) {
-        return "Некорректный токен авторизации. Повторите попытку снова";
+        return "Некорректный токен авторизации";
       }
     };
 

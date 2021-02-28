@@ -46,12 +46,7 @@
 
 @import url(./blocks/form/form.css);
 @import url(./blocks/form/__title/form__title.css);
-@import url(./blocks/form/__add-element-fieldset/form__add-element-fieldset.css);
 @import url(./blocks/form/__submit-button/form__submit-button.css);
-@import url(./blocks/form/__change-avatar-fieldset/form__change-avatar-fieldset.css);
-/* themes */
-@import url(./blocks/form/_theme_dark/form_theme_dark.css);
-@import url(./blocks/form/_theme_light/form_theme_light.css);
 
 @import url(./blocks/picture/picture.css);
 @import url(./blocks/picture/__description/picture__description.css);
@@ -97,6 +92,8 @@
 
 @import url(./blocks/message-box/message-box.css);
 @import url(./blocks/message-box/__text/message-box__text.css);
+@import url(./blocks/message-box/_theme_dark/message-box_theme_dark.css);
+@import url(./blocks/message-box/_theme_light/message-box_theme_light.css);
 
 @import url(./blocks/popup/popup.css);
 @import url(./blocks/popup/_opened/popup_opened.css);
@@ -138,22 +135,18 @@
 @import url(./blocks/transparent-form/__link/_theme_dark/transparent-form__link_theme_dark.css);
 @import url(./blocks/transparent-form/__link/_theme_light/transparent-form__link_theme_light.css);
 
-@import url(./blocks/color-form/color-form.css);
-@import url(./blocks/color-form/color-form__field/color-form__field.css);
-@import url(./blocks/color-form/color-form__input/color-form__input.css);
-@import url(./blocks/color-form/color-form__submit-button/color-form__submit-button.css);
-@import url(./blocks/color-form/color-form__title/color-form__title.css);
 /* themes */
+@import url(./blocks/color-form/__title/color-form__title.css);
 @import url(./blocks/color-form/_theme_dark/color-form_theme_dark.css);
 @import url(./blocks/color-form/_theme_light/color-form_theme_light.css);
-@import url(./blocks/color-form/color-form__field/_theme_dark/color-form__field_theme_dark.css);
-@import url(./blocks/color-form/color-form__field/_theme_light/color-form__field_theme_light.css);
-@import url(./blocks/color-form/color-form__input/_theme_dark/color-form__input_theme_dark.css);
-@import url(./blocks/color-form/color-form__input/_theme_light/color-form__input_theme_light.css);
-@import url(./blocks/color-form/color-form__submit-button/_theme_dark/color-form__submit-button_theme_dark.css);
-@import url(./blocks/color-form/color-form__submit-button/_theme_light/color-form__submit-button_theme_light.css);
-@import url(./blocks/color-form/color-form__title/_theme_dark/color-form__title_theme_dark.css);
-@import url(./blocks/color-form/color-form__title/_theme_light/color-form__title_theme_light.css);
+@import url(./blocks/color-form/__field/_theme_dark/color-form__field_theme_dark.css);
+@import url(./blocks/color-form/__field/_theme_light/color-form__field_theme_light.css);
+@import url(./blocks/color-form/__input/_theme_dark/color-form__input_theme_dark.css);
+@import url(./blocks/color-form/__input/_theme_light/color-form__input_theme_light.css);
+@import url(./blocks/color-form/__submit-button/_theme_dark/color-form__submit-button_theme_dark.css);
+@import url(./blocks/color-form/__submit-button/_theme_light/color-form__submit-button_theme_light.css);
+@import url(./blocks/color-form/__title/_theme_dark/color-form__title_theme_dark.css);
+@import url(./blocks/color-form/__title/_theme_light/color-form__title_theme_light.css);
 
 @import url(./blocks/register/register.css);
 @import url(./blocks/register/__form/register__form.css);

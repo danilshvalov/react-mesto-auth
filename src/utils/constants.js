@@ -355,7 +355,7 @@ export const messagePopupClassNames = {
   name: "message",
   container: "message-box popup__message-box",
   textContainer: "message-box__text",
-  closeButton: "button close-button popup__close-button",
+  closeButton: "button button_small-size button_invert-color close-button popup__close-button",
 };
 
 export const confirmPopupClassNames = {

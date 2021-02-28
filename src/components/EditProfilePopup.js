@@ -54,12 +54,12 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
 
   return (
     <PopupWithForm
+      {...editProfilePopupSettings.popup}
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
       formClass={colorFormClassNames.form}
       titleClass={colorFormClassNames.title}
-      {...editProfilePopupSettings.popup}
       submitButton={
         <SubmitButton
           {...editProfilePopupSettings.submitButton}

@@ -18,7 +18,7 @@ import { addThemeAttrs } from "../utils/utils";
 import * as theme from "../utils/theme";
 import auth from "../utils/auth";
 import Login from "./Login";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import InfoTooltip from "./InfoTooltip";
 import { linkPaths } from "../utils/constants";
 
@@ -289,11 +289,18 @@ function App() {
                   onCardDelete={handleCardDeleteClick}
                   component={Main}
                 />
-                <Route path="/sign-in">
+                <Route path={linkPaths.loginPage}>
                   <Login onLogin={handleLogin} />
                 </Route>
-                <Route path="/sign-up">
+                <Route path={linkPaths.registerPage}>
                   <Register onRegister={handleRegister} />
+                </Route>
+                <Route path="*">
+                  {isLoggedIn ? (
+                    <Redirect to={linkPaths.mainPage} />
+                  ) : (
+                    <Redirect to={linkPaths.loginPage} />
+                  )}
                 </Route>
               </Switch>
               <Footer />

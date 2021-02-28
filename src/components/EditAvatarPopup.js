@@ -43,12 +43,12 @@ function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
 
   return (
     <PopupWithForm
+      {...editAvatarPopupSettings.popup}
       formClass={colorFormClassNames.form}
       titleClass={colorFormClassNames.title}
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-      {...editAvatarPopupSettings.popup}
       submitButton={
         <SubmitButton
           {...editAvatarPopupSettings.submitButton}
