@@ -3,29 +3,31 @@ import logo from "../images/header-logo.svg";
 import ThemeSwitcher from "./ThemeSwitcher";
 import ThemeContext from "../contexts/ThemeContext";
 import { addThemeAttrs } from "../utils/utils";
+import { headerClassNames } from "../utils/constants";
+import Navbar from "./Navbar";
+import { NavLink, Route } from "react-router-dom";
 
 function Header(props) {
   // contexts
   const currentTheme = React.useContext(ThemeContext);
 
   // classes
-  const defaultHeaderClass = "header";
   const headerClassName = addThemeAttrs({
     theme: currentTheme,
-    classList: defaultHeaderClass,
+    classList: headerClassNames.header,
   });
 
-  const defaultLogoClass = "header__logo";
   const logoClassName = addThemeAttrs({
     theme: currentTheme,
-    classList: defaultLogoClass,
+    classList: headerClassNames.logo,
   });
 
   return (
     <header className={headerClassName}>
       <img className={logoClassName} src={logo} alt="Места России" />
-      <div className="header__container">
-        <ThemeSwitcher onThemeSwitch={props.onThemeSwitch} />
+      <div className={headerClassNames.container}>
+        <div className="header__item"><ThemeSwitcher onThemeSwitch={props.onThemeSwitch} /></div>
+        <div className="header__item"><Navbar onSignOut={props.onSignOut} /></div>
       </div>
     </header>
   );

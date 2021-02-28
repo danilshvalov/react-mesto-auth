@@ -25,7 +25,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
     isValid: false,
   });
   const [descriptionInput, setDescriptionInput] = React.useState({
-    value: currentUser.value,
+    value: currentUser.about,
     isValid: false,
   });
   const [isValid, setValid] = React.useState(false);
@@ -57,6 +57,8 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      formClass={colorFormClassNames.form}
+      titleClass={colorFormClassNames.title}
       {...editProfilePopupSettings.popup}
       submitButton={
         <SubmitButton
@@ -74,7 +76,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
           inputClass={colorFormClassNames.input}
           onInput={setNameInput}
           isVisible={isOpen}
-          defaultValue={currentUser.name}
+          defaultValue={currentUser.name ? currentUser.name : ""}
         />
         <Field
           {...editProfilePopupSettings.descriptionInput}
@@ -82,7 +84,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
           inputClass={colorFormClassNames.input}
           onInput={setDescriptionInput}
           isVisible={isOpen}
-          defaultValue={currentUser.about}
+          defaultValue={currentUser.about ? currentUser.about : ""}
         />
       </Fieldset>
     </PopupWithForm>

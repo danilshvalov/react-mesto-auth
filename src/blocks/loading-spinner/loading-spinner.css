@@ -1,5 +1,5 @@
 .loading-spinner {
-  height: 99vh;
+  min-height: 50vh;
   margin: 0 auto;
   background-image: url(../../images/loading.svg);
   background-repeat: no-repeat;

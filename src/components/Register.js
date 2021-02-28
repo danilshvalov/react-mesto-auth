@@ -6,8 +6,9 @@ import { registerSettings } from "../utils/constants";
 import ColoredLink from "./ColoredLink";
 import ColoredTitle from "./ColoredTitle";
 import Fieldset from "./Fieldset";
+import { use } from "react-router-dom";
 
-function Register() {
+function Register(props) {
   // constants
   const {
     classNames,
@@ -19,11 +20,19 @@ function Register() {
   const [emailInput, setEmailInput] = React.useState("");
   const [passwordInput, setPasswordInput] = React.useState("");
 
+  // handlers
+  const handleRegister = (evt) => {
+    evt.preventDefault();
+    props.onRegister({ email: emailInput.value, password: passwordInput.value });
+  };
+
   return (
     <section className={classNames.register}>
       <div className={classNames.registerContainer}>
-        <Form className={classNames.form} title={attributes.titleText}>
-          <ColoredTitle className={classNames.title}>Регистрация</ColoredTitle>
+        <Form className={classNames.form} onSubmit={handleRegister}>
+          <ColoredTitle className={classNames.title}>
+            {attributes.titleText}
+          </ColoredTitle>
           <Fieldset className={classNames.fieldset}>
             <Field
               {...emailInputSettings}

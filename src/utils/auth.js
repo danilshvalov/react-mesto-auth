@@ -33,6 +33,7 @@ class Auth {
     });
   }
   register({ email, password }) {
+    console.log(email, password);
     const errorIdentifier = (code) => {
       if (code === 400) {
         return "Некорректно заполнено одно из полей. Повторите попытку снова";
@@ -52,7 +53,7 @@ class Auth {
       if (code === 400) {
         return "Не все поля были заполнены. Повторите попытку снова";
       } else if (code === 401) {
-        return `Пользователь с email «${email} не найден`;
+        return `Пользователь с email «${email}» не найден`;
       }
     };
 
@@ -77,7 +78,7 @@ class Auth {
       path: "users/me",
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       errorMessage: "Не удалось проверить токен",
       errorIdentifier: errorIdentifier,

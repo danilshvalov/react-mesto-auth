@@ -16,6 +16,10 @@ import ProtectedRoute from "./ProtectedRoute";
 import ThemeContext from "../contexts/ThemeContext";
 import { addThemeAttrs } from "../utils/utils";
 import * as theme from "../utils/theme";
+import auth from "../utils/auth";
+import Login from "./Login";
+import { Route, Switch, useHistory } from "react-router-dom";
+import InfoTooltip from "./InfoTooltip";
 
 function App() {
   // states
@@ -30,9 +34,18 @@ function App() {
   const [isConfirmPopupOpen, setConfirmPopupOpen] = React.useState(false);
   const [isMessagePopupOpen, setMessagePopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = React.useState(
+    false
+  );
   const [selectedCard, setSelectedCard] = React.useState();
-  const [popupMessage, setPopupMessage] = React.useState();
+  const [popupMessage, setPopupMessage] = React.useState("");
+  const [infoTooltipData, setInfoTooltipData] = React.useState({
+    message: "",
+    redirectPath: "",
+  });
+  const [isActionSuccess, setActionSuccess] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({
+    email: "",
     name: "",
     about: "",
     avatar: "",
@@ -44,22 +57,33 @@ function App() {
     cardCandidateForDeletion,
     setCardCandidateForDeletion,
   ] = React.useState();
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const history = useHistory();
 
   document.addEventListener("DOMContentLoaded", () => {
     setDOMLoading(false);
   });
   // effects
   React.useEffect(() => {
-    handleApiError(
-      Promise.all([api.getUserInfo(), api.getInitialCards()]),
-      (result) => {
-        const [userInfo, initialCards] = result;
-        setCurrentUser(userInfo);
-        setCards(initialCards);
-        setApiDataLoading(false);
-      }
-    );
+    handleTokenCheck();
   }, []);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      handleApiError(
+        Promise.all([api.getUserInfo(), api.getInitialCards()]),
+        (result) => {
+          const [userInfo, initialCards] = result;
+          setCurrentUser(userInfo);
+          setCards(initialCards);
+          setApiDataLoading(false);
+        }
+      );
+    } else {
+      setApiDataLoading(false);
+    }
+  }, [isLoggedIn]);
+
   React.useEffect(() => {
     setIsAppLoading(isApiDataLoading || isDOMLoading);
   }, [isApiDataLoading, isDOMLoading]);
@@ -67,6 +91,29 @@ function App() {
   React.useEffect(() => {
     theme.updateUserTheme(currentTheme);
   }, [currentTheme]);
+
+  // functions
+  const closeMessagePopup = () => {
+    setMessagePopupOpen(false);
+  };
+
+  const closeAllPopups = () => {
+    setEditAvatarPopupOpen(false);
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+    setConfirmPopupOpen(false);
+    setImagePopupOpen(false);
+  };
+
+  const updateToken = (data) => {
+    localStorage.setItem("jwt", data.token);
+  };
+
+  const openInfoTooltip = ({ message, redirectPath, isSuccess }) => {
+    setActionSuccess(isSuccess);
+    setInfoTooltipData({ message, redirectPath });
+    setInfoTooltipPopupOpen(true);
+  };
 
   // handlers
   const handleApiError = (promise, callback) => {
@@ -103,6 +150,12 @@ function App() {
       setEditAvatarPopupOpen(false);
     });
   };
+  const handleInfoTooltipPopupClose = (redirectPath) => {
+    setInfoTooltipPopupOpen(false);
+    if (redirectPath) {
+      history.push(redirectPath);
+    }
+  };
 
   // button-handlers
   const handleEditAvatarClick = () => {
@@ -121,6 +174,67 @@ function App() {
       setCurrentTheme("dark");
     }
   };
+  // ---------------------------------------------------------------
+
+  // auth-handlers
+  const handleLogin = (data) => {
+    auth
+      .authorize(data)
+      .then((res) => {
+        updateToken(res);
+        setLoggedIn(true);
+        setCurrentUser({ ...currentUser, email: data.email });
+        openInfoTooltip({
+          message: "успех",
+          redirectPath: "/",
+          isSuccess: true,
+        });
+      })
+      .catch((errorMessage) => {
+        openInfoTooltip({ message: errorMessage, isSuccess: false });
+      });
+  };
+
+  const handleRegister = (data) => {
+    auth
+      .register(data)
+      .then((res) => {
+        updateToken(res);
+        openInfoTooltip({
+          message: "успех",
+          redirectPath: "/sign-in",
+          isSuccess: true,
+        });
+      })
+      .catch((errorMessage) => {
+        setActionSuccess(false);
+        openInfoTooltip({
+          message: "успех",
+          isSuccess: false,
+        });
+      });
+  };
+
+  const handleTokenCheck = () => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth.checkToken(jwt).then((res) => {
+        setLoggedIn(true);
+        api.setAuthToken(jwt);
+        setCurrentUser({ email: res.email, _id: res._id });
+        history.push("/");
+      });
+    } else {
+      setLoggedIn(false);
+    }
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    history.push("/sign-in");
+  };
+
   // ---------------------------------------------------------------
 
   // card-handlers
@@ -148,78 +262,83 @@ function App() {
   };
   // ---------------------------------------------------------------
 
-  // functions
-  const closeMessagePopup = () => {
-    setMessagePopupOpen(false);
-  };
-
-  const closeAllPopups = () => {
-    setEditAvatarPopupOpen(false);
-    setEditProfilePopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setConfirmPopupOpen(false);
-    setImagePopupOpen(false);
-  };
-
   return (
-    <div className={addThemeAttrs({ theme: currentTheme, classList: "page" })}>
+    <CurrentUserContext.Provider value={currentUser}>
       <ThemeContext.Provider value={currentTheme}>
-        <CurrentUserContext.Provider value={currentUser}>
-          <Header onThemeSwitch={handleThemeSwitch} />
+        <div
+          className={addThemeAttrs({ theme: currentTheme, classList: "page" })}
+        >
+          <Header onThemeSwitch={handleThemeSwitch} onSignOut={handleSignOut} />
           {isAppLoading ? (
             <LoadingSpinner />
           ) : (
             <>
-              <Register />
-              <ProtectedRoute
-                path="/"
-                cards={cards}
-                onEditProfile={handleEditProfileClick}
-                onAddPlace={handleAddPlaceClick}
-                onEditAvatar={handleEditAvatarClick}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDeleteClick}
-                component={Main}
+              <Switch>
+                <ProtectedRoute
+                  exact
+                  path="/"
+                  loggedIn={isLoggedIn}
+                  cards={cards}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDeleteClick}
+                  component={Main}
+                />
+                <Route path="/sign-in">
+                  <Login onLogin={handleLogin} />
+                </Route>
+                <Route path="/sign-up">
+                  <Register onRegister={handleRegister} />
+                </Route>
+              </Switch>
+              <Footer />
+
+              <EditProfilePopup
+                isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
+                onUpdateUser={handleUpdateUser}
+              />
+              <AddPlacePopup
+                isOpen={isAddPlacePopupOpen}
+                onClose={closeAllPopups}
+                onAddPlace={handleAddPlace}
+              />
+              <EditAvatarPopup
+                isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
+                onUpdateAvatar={handleUpdateAvatar}
+              />
+              <ImagePopup
+                {...selectedCard}
+                isOpen={isImagePopupOpen}
+                onClose={closeAllPopups}
+              />
+              <MessagePopup
+                isOpen={isMessagePopupOpen}
+                onClose={closeMessagePopup}
+                message={popupMessage}
+              />
+              <ConfirmPopup
+                card={cardCandidateForDeletion}
+                onCardDelete={handleCardDelete}
+                isOpen={isConfirmPopupOpen}
+                onClose={closeAllPopups}
+              />
+              <InfoTooltip
+                isOpen={isInfoTooltipPopupOpen}
+                onClose={handleInfoTooltipPopupClose}
+                message={infoTooltipData.message}
+                redirectPath={infoTooltipData.redirectPath}
+                isSuccess={isActionSuccess}
               />
             </>
           )}
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlace}
-          />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-          />
-          <ImagePopup
-            {...selectedCard}
-            isOpen={isImagePopupOpen}
-            onClose={closeAllPopups}
-          />
-          <MessagePopup
-            isOpen={isMessagePopupOpen}
-            onClose={closeMessagePopup}
-            message={popupMessage}
-          />
-          <ConfirmPopup
-            card={cardCandidateForDeletion}
-            onCardDelete={handleCardDelete}
-            isOpen={isConfirmPopupOpen}
-            onClose={closeAllPopups}
-          />
-
-          <Footer />
-        </CurrentUserContext.Provider>
+        </div>
       </ThemeContext.Provider>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 

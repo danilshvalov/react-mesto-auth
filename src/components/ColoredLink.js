@@ -1,6 +1,6 @@
 import React from "react";
 import ThemeContext from "../contexts/ThemeContext";
-import { addThemeAttrs } from "../utils/utils";
+import { addThemeAttrs, getOnlyDOMProps } from "../utils/utils";
 import { NavLink } from "react-router-dom";
 
 function ColoredLink(props) {
@@ -14,7 +14,7 @@ function ColoredLink(props) {
   });
 
   return (
-    <NavLink className={linkClassName} to={props.to}>
+    <NavLink to={props.to} {...getOnlyDOMProps(props)} className={linkClassName}>
       {props.children}
     </NavLink>
   );

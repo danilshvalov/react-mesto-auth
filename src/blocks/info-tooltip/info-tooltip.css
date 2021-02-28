@@ -1,0 +1,12 @@
+.info-tooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 358px;
+  height: 210px;
+  padding: 60px;
+  border-radius: 10px;
+  position: relative;
+  cursor: default;
+}

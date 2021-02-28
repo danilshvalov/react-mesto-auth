@@ -1,0 +1,7 @@
+.navbar__item {
+  margin: 0 20px 0 0;
+}
+
+.navbar__item:last-of-type {
+  margin-right: 0;
+}

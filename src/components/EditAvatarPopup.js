@@ -2,7 +2,10 @@ import React from "react";
 import Field from "./Field";
 import PopupWithForm from "./PopupWithForm";
 import SubmitButton from "./SubmitButton";
-import { colorFormClassNames, editAvatarPopupSettings } from "../utils/constants";
+import {
+  colorFormClassNames,
+  editAvatarPopupSettings,
+} from "../utils/constants";
 import Fieldset from "./Fieldset";
 
 function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
@@ -40,6 +43,8 @@ function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
 
   return (
     <PopupWithForm
+      formClass={colorFormClassNames.form}
+      titleClass={colorFormClassNames.title}
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}

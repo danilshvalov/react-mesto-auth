@@ -227,7 +227,39 @@ export const registerSettings = {
   attributes: {
     titleText: "Регистрация",
     submitButtonText: "Зарегистрироваться",
-    linkToLogin: "/signin",
+    linkToLogin: "/sign-in",
+  },
+};
+
+export const loginSettings = {
+  classNames: {
+    login: "login",
+    loginContainer: "login__container",
+    form: "form transparent-form login__form",
+    fieldset: "fieldset transparent-form__fieldset",
+    input: "field__input transparent-form__input login__input",
+    field: "field transparent-form__field login__field",
+    title: "transparent-form__title login__title",
+    submitButton:
+      "submit-button transparent-form__submit-button login__submit-button",
+  },
+  emailInput: {
+    name: "email",
+    type: "email",
+    defaultValue: "",
+    placeholder: "Email",
+    required: true,
+  },
+  passwordInput: {
+    name: "password",
+    type: "password",
+    defaultValue: "",
+    placeholder: "Пароль",
+    required: true,
+  },
+  attributes: {
+    titleText: "Вход",
+    submitButtonText: "Войти",
   },
 };
 
@@ -303,6 +335,12 @@ export const editAvatarPopupSettings = {
   },
 };
 
+export const infoTooltipClassNames = {
+  infoTooltip: "info-tooltip",
+  icon: "info-tooltip__icon",
+  text: "info-tooltip__text"
+};
+
 export const imagePopupClassNames = {
   picture: "picture popup__picture",
   image: "picture__image",
@@ -313,7 +351,18 @@ export const messagePopupClassNames = {
   name: "message",
   container: "message-box popup__message-box",
   textContainer: "message-box__text",
-  closeButton: "button close-button popup__close-button"
+  closeButton: "button close-button popup__close-button",
+};
+
+export const headerClassNames = {
+  header: "header",
+  logo: "header__logo",
+  container: "header__container",
+};
+
+export const navbarClassNames = {
+  navbar: "navbar",
+  link: "navbar__link",
 };
 
 export const loadingSpinnerClassName = "loading-spinner";
