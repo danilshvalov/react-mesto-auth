@@ -31,7 +31,7 @@ function PopupWithForm({
   return (
     <Popup name={name} isOpen={isOpen} onClose={onClose}>
       <Form
-        className={formClassName}
+        className={`popup__${name}-form ${formClassName}`}
         method="POST"
         action="/"
         name={name}

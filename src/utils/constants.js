@@ -338,7 +338,7 @@ export const editAvatarPopupSettings = {
 export const infoTooltipClassNames = {
   infoTooltip: "info-tooltip",
   icon: "info-tooltip__icon",
-  text: "info-tooltip__text"
+  text: "info-tooltip__text",
 };
 
 export const imagePopupClassNames = {
@@ -354,6 +354,17 @@ export const messagePopupClassNames = {
   closeButton: "button close-button popup__close-button",
 };
 
+export const confirmPopupClassNames = {
+  popup: {
+    name: "confirm",
+    title: "Вы уверены?"
+  },
+  submitButton: {
+    defaultText: "Да",
+    loadingText: "Удаление..."
+  }
+};
+
 export const headerClassNames = {
   header: "header",
   logo: "header__logo",
@@ -366,3 +377,9 @@ export const navbarClassNames = {
 };
 
 export const loadingSpinnerClassName = "loading-spinner";
+
+export const linkPaths = {
+  loginPage: "sign-in/",
+  mainPage: "/",
+  registerPage: "sign-up",
+};

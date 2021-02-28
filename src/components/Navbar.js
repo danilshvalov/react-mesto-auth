@@ -1,18 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import CurrentUserContext from "../contexts/CurrentUserContext";
 import { navbarClassNames } from "../utils/constants";
 import ColoredLink from "./ColoredLink";
 
 function Navbar(props) {
-  // contexts
-  const currentUser = React.useContext(CurrentUserContext);
-
   return (
     <nav className={navbarClassNames.navbar}>
       <ul className="navbar__container">
         <Route exact path="/">
-          <li className="navbar__item">{currentUser.email}</li>
+          <li className="navbar__item">{props.email}</li>
           <li className="navbar__item">
             <ColoredLink
               to="/sign-in"

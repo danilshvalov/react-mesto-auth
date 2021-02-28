@@ -45,12 +45,12 @@ function App() {
   });
   const [isActionSuccess, setActionSuccess] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({
-    email: "",
     name: "",
     about: "",
     avatar: "",
     _id: "",
   });
+  const [email, setEmail] = React.useState("");
   const [currentTheme, setCurrentTheme] = React.useState(theme.getUserTheme());
   const [cards, setCards] = React.useState([]);
   const [
@@ -67,22 +67,6 @@ function App() {
   React.useEffect(() => {
     handleTokenCheck();
   }, []);
-
-  React.useEffect(() => {
-    if (isLoggedIn) {
-      handleApiError(
-        Promise.all([api.getUserInfo(), api.getInitialCards()]),
-        (result) => {
-          const [userInfo, initialCards] = result;
-          setCurrentUser(userInfo);
-          setCards(initialCards);
-          setApiDataLoading(false);
-        }
-      );
-    } else {
-      setApiDataLoading(false);
-    }
-  }, [isLoggedIn]);
 
   React.useEffect(() => {
     setIsAppLoading(isApiDataLoading || isDOMLoading);
@@ -113,6 +97,18 @@ function App() {
     setActionSuccess(isSuccess);
     setInfoTooltipData({ message, redirectPath });
     setInfoTooltipPopupOpen(true);
+  };
+
+  const loadApiData = () => {
+    handleApiError(
+      Promise.all([api.getUserInfo(), api.getInitialCards()]),
+      (result) => {
+        const [userInfo, initialCards] = result;
+        setCurrentUser(userInfo);
+        setCards(initialCards);
+        setApiDataLoading(false);
+      }
+    );
   };
 
   // handlers
@@ -183,12 +179,13 @@ function App() {
       .then((res) => {
         updateToken(res);
         setLoggedIn(true);
-        setCurrentUser({ ...currentUser, email: data.email });
+        setEmail(data.email);
         openInfoTooltip({
           message: "успех",
           redirectPath: "/",
           isSuccess: true,
         });
+        loadApiData();
       })
       .catch((errorMessage) => {
         openInfoTooltip({ message: errorMessage, isSuccess: false });
@@ -220,8 +217,8 @@ function App() {
     if (jwt) {
       auth.checkToken(jwt).then((res) => {
         setLoggedIn(true);
-        api.setAuthToken(jwt);
-        setCurrentUser({ email: res.email, _id: res._id });
+        setEmail(res.data.email);
+        loadApiData();
         history.push("/");
       });
     } else {
@@ -268,7 +265,11 @@ function App() {
         <div
           className={addThemeAttrs({ theme: currentTheme, classList: "page" })}
         >
-          <Header onThemeSwitch={handleThemeSwitch} onSignOut={handleSignOut} />
+          <Header
+            onThemeSwitch={handleThemeSwitch}
+            onSignOut={handleSignOut}
+            email={email}
+          />
           {isAppLoading ? (
             <LoadingSpinner />
           ) : (
