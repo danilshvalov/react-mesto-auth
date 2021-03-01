@@ -52,7 +52,7 @@ class Auth {
       if (code === 400) {
         return "Не все поля были заполнены";
       } else if (code === 401) {
-        return `Неверный email или пароль`;
+        return "Неверный email или пароль";
       }
     };
 

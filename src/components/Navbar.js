@@ -8,7 +8,9 @@ function Navbar(props) {
     <nav className={navbarClassNames.navbar}>
       <ul className={navbarClassNames.container}>
         <Route exact path={linkPaths.mainPage}>
-          <li className={navbarClassNames.item}>{props.email}</li>
+          <li className={navbarClassNames.item}>
+            <span className={navbarClassNames.email}>{props.email}</span>
+          </li>
           <li className={navbarClassNames.item}>
             <ColoredLink
               to={linkPaths.loginPage}

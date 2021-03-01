@@ -228,6 +228,7 @@ export const registerSettings = {
     titleText: "Регистрация",
     submitButtonDefaultText: "Зарегистрироваться",
     submitButtonLoadingText: "Регистрируем...",
+    successMessage: "Вы успешно зарегистрировались!"
   },
 };
 
@@ -261,6 +262,7 @@ export const loginSettings = {
     titleText: "Вход",
     submitButtonDefaultText: "Войти",
     submitButtonLoadingText: "Входим...",
+    successMessage: "Вы успешно авторизовались!"
   },
 };
 
@@ -382,6 +384,7 @@ export const navbarClassNames = {
   dimLink: "navbar__link navbar__link_type_dim",
   item: "navbar__item",
   container: "navbar__container",
+  email: "navbar__email"
 };
 
 export const cardClassNames = {

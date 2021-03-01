@@ -164,6 +164,7 @@
 @import url(./blocks/navbar/__item/navbar__item.css);
 @import url(./blocks/navbar/__link/navbar__link.css);
 @import url(./blocks/navbar/__link/_type_dim/navbar__link_type_dim.css);
+@import url(./blocks/navbar/__email/navbar__email.css);
 
 @import url(./blocks/info-tooltip/info-tooltip.css);
 @import url(./blocks/info-tooltip/__icon/info-tooltip__icon.css);

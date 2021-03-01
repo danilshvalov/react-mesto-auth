@@ -7,11 +7,14 @@ import { addThemeAttrs } from "../utils/utils";
 import ThemeContext from "../contexts/ThemeContext";
 
 function InfoTooltip(props) {
-  // contexts 
+  // contexts
   const currentTheme = React.useContext(ThemeContext);
 
   // classes
-  const infoTooltipClassName = addThemeAttrs({theme: currentTheme, classList: infoTooltipClassNames.infoTooltip})
+  const infoTooltipClassName = addThemeAttrs({
+    theme: currentTheme,
+    classList: infoTooltipClassNames.infoTooltip,
+  });
 
   // handlers
   const handleClose = () => {

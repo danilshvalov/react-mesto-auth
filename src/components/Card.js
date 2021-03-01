@@ -4,6 +4,7 @@ import ThemeContext from "../contexts/ThemeContext";
 import { cardClassNames } from "../utils/constants";
 import { addThemeAttrs } from "../utils/utils";
 import PushButton from "./PushButton";
+import notFoundImagePlug from "../images/not-found.svg";
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -42,6 +43,11 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     onCardDelete(card);
   };
 
+  const handleImageLoadError = (evt) => {
+    card.link = notFoundImagePlug;
+    evt.target.src = notFoundImagePlug;
+  };
+
   const likeCountClassName = addThemeAttrs({
     theme: currentTheme,
     classList: cardClassNames.likeCount,
@@ -54,6 +60,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         src={card.link}
         alt={card.name}
         onClick={handleClick}
+        onError={handleImageLoadError}
       />
       <div className={cardClassNames.sideBar}>
         <h3 className={cardClassNames.title}>{card.name}</h3>

@@ -1,15 +1,18 @@
 .navbar__item {
+  display: flex;
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
 
-  text-align: right;
-  margin: 0 24px 0 0;
+  overflow: hidden;
+
+  margin-right: 15px;
 }
 
 .navbar__item:last-of-type {
+  width: max-content;
   margin-right: 0;
 }
 
@@ -18,8 +21,10 @@
     font-size: 14px;
     line-height: 17px;
   }
+}
 
-  .navbar__item:last-of-type {
-    margin-right: 30px;
+@media screen and (max-width: 420px) {
+  .navbar__item {
+    display: none;
   }
 }

@@ -8,7 +8,10 @@ function ThemeSwitcher({ onThemeSwitch }) {
   const currentTheme = React.useContext(ThemeContext);
 
   // classes
-  const themeButtonClassName = addThemeAttrs({theme: currentTheme, classList: themeSwitcherClassNames.themeButton});
+  const themeButtonClassName = addThemeAttrs({
+    theme: currentTheme,
+    classList: themeSwitcherClassNames.themeButton,
+  });
 
   const handleThemeSwitch = () => {
     onThemeSwitch(currentTheme === "dark" ? "light" : "dark");
@@ -16,10 +19,7 @@ function ThemeSwitcher({ onThemeSwitch }) {
 
   return (
     <div className={themeSwitcherClassNames.themeSwitcher}>
-      <button
-        className={themeButtonClassName}
-        onClick={handleThemeSwitch}
-      />
+      <button className={themeButtonClassName} onClick={handleThemeSwitch} />
     </div>
   );
 }
